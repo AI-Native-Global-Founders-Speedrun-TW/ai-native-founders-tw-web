@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/og/default.png" alt="AI-Native Global Founders Speedrun Taiwan" width="720" />
+<img src="assets/readme-hero.png" alt="AI-Native Global Founders Speedrun Taiwan 官網首頁" width="720" />
 
 # ai-native-founders-tw-web
 
