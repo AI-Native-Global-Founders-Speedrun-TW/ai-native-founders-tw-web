@@ -29,7 +29,7 @@ export function meta(g: FullGraph, site?: URL) {
     source: {
       mono: g.sources.mono
         ? {
-            repo: 'https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono',
+            repo: 'https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono',
             commit: g.sources.mono.commit,
           }
         : null,
@@ -42,6 +42,7 @@ export function meta(g: FullGraph, site?: URL) {
 export function publicIntro(p: PersonRecord, intro: IntroRecord) {
   return {
     id: p.id,
+    memberId: p.memberId ?? null,
     name: p.name,
     github: p.github ?? null,
     avatar: p.avatar ?? null,
@@ -62,6 +63,7 @@ export function publicIntro(p: PersonRecord, intro: IntroRecord) {
 export function publicPerson(p: PersonRecord) {
   return {
     id: p.id,
+    memberId: p.memberId ?? null,
     name: p.name,
     kind: p.kind,
     github: p.github ?? null,

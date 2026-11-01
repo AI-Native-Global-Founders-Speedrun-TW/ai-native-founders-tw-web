@@ -1,38 +1,38 @@
 # /join 頁文案（zh-TW）。不會寫程式也可以直接改，開 PR 後會有預覽網址。
 # 四個步驟沿用 zh-tw.yaml 的 finish.steps（與 Threads SOP 公版一致），這裡不重複。
-# FAQ 依據：mono 申請制度、自介審查、成員參與制度、憲法第 2、7、11、13 條、Members/README（docs/06 §3）。
+# FAQ 依據：mono 申請制度、自介審查、成員參與制度、憲法第 2、7、11、13 條、members/README（docs/06 §3）。
 # 規則：不寫背景／實力門檻；不承諾審查時間；不把 Note 中未採納的構想寫成服務。
 
 meta:
   title: 加入 · AI-Native Global Founders Speedrun Taiwan
-  description: 加入的唯一門檻，是用 PR 提交一份真誠的自我介紹。四個步驟、常見問題，以及在瀏覽器裡就能完成的自介產生器。
+  description: 以真誠的自介 PR 申請加入，並依現行制度完成所需內容。四個步驟、常見問題，以及在瀏覽器裡就能完成的自介產生器。
 
 hero:
   kicker: Join · 加入路線
   title: 一份真誠的自介，
   titleAccent: 就是你的起點。
-  body: 加入的唯一門檻，是用 PR 提交自我介紹。我們看的是真誠，不是背景、實力或經歷；沒有專案、還在探索，也可以如實寫。
+  body: 以自介 PR 申請加入，成員資格依現行制度與有效審查紀錄核對。我們看的是真誠，不是背景、實力或經歷；沒有專案、還在探索，也可以如實寫。
   ctaPrimary: 開始寫自介
   ctaSecondary: 先讀申請制度
   facts:
     - k: 費用
       v: 加入不需付費
-    - k: 門檻
-      v: 一份自介 PR
+    - k: 申請方式
+      v: 以自介 PR 申請
     - k: 看什麼
       v: 真誠，不看背景
 
 steps:
   kicker: Route · 四個檢查點
   title: 四步，跑完加入路線。
-  body: Star 與活動留言歡迎依意願參與；成員資格以自介 PR 審查通過為準。
+  body: Star 與活動留言歡迎依意願參與；成員資格依現行制度與有效審查紀錄核對。
   open: 前往
   final: 終點
 
 builder:
   kicker: Intro builder · 自介產生器
   title: 照著範本，一欄一欄寫。
-  body: 這裡協助你起草自介，右邊會即時產生 Markdown。提交前請依 Members/README 與正式申請制度核對最新要求並補齊內容；寫好後按下按鈕，GitHub 會開啟建立檔案的頁面，由你自己確認並開 PR。
+  body: 這裡協助你起草自介，右邊會即時產生 Markdown。提交前請依 members/README 與正式申請制度核對最新要求並補齊內容；寫好後按下按鈕，GitHub 會開啟建立檔案的頁面，由你自己確認並開 PR。
   privacy: 產生器只在你的瀏覽器裡執行，不會把內容送到任何地方。草稿只存在這個瀏覽器；按下按鈕時，內容才會帶到 GitHub 的編輯頁，在你提交之前都不會公開。
   groups:
     - id: you
@@ -41,14 +41,14 @@ builder:
       title: 為什麼加入
     - id: rnr
       title: 可以幫什麼忙、想要幫什麼忙
-      note: 寫下可以幫什麼忙、想要幫什麼忙，方便大家找人協作；這不代表你答應接下任何指定的工作。完整自介與分工要求，請依 Members/README 與正式申請制度辦理。
+      note: 寫下可以幫什麼忙、想要幫什麼忙，方便大家找人協作；這不代表你答應接下任何指定的工作。完整自介與分工要求，請依 members/README 與正式申請制度辦理。
   fields:
     name:
       label: 名字或慣用稱呼
       placeholder: 例：小明、Ray 貓
     github:
       label: GitHub 帳號
-      hint: 用來建議檔名（<帳號>.md）。這是方便辨識的建議，不是資格條件。
+      hint: 必填目前使用的 GitHub 帳號。申請檔名為 pending-<小寫帳號>.md；合併前由合併人配置固定六位數編號，並改成 <編號>-<小寫帳號>.md。取得編號不代表取得正式成員資格。
       placeholder: your-github
     about:
       label: 我是誰
@@ -78,12 +78,12 @@ builder:
   resetConfirm: 確定要清空所有欄位嗎？
   progress: 已完成
   missing: 還沒填
-  review: 提交前請由你本人 review 全文，確認內容都是真的，也沒有不願公開的個資。完整要求見 Members/README 的提交步驟。
+  review: 提交前請由你本人 review 全文，確認內容都是真的，也沒有不願公開的個資。申請還須附一張本人願意公開的真人照片，並自行選擇至少一項 R&R 當 Contributors，在 assignment 連到自己的成員檔案。這個按鈕只開啟自介檔案，照片與分工仍須依 members/README 補進同一個 PR。
   confirm: 我已經親自 review 全文，內容真實，也沒有不願公開的個資。
   submit: 到 GitHub 建立自介檔案
   submitHint: 會在新分頁開啟 GitHub（需要登入）。沒有權限時，GitHub 會自動幫你 fork；接著照頁面按「Propose new file」→「Create pull request」。
   tooLong: 內容很長，GitHub 可能帶不進全文。若頁面是空的，請先複製 Markdown 再貼上。
-  guide: 想手動操作？看 Members/README 的步驟
+  guide: 想手動操作？看 members/README 的步驟
 
 faq:
   kicker: FAQ
@@ -97,16 +97,16 @@ faq:
       a: 可以，自介由 AI 寫是很正常的；審查看的是內容有沒有真誠，不看文章品質。提交前請你本人 review 全文，確認沒有 AI 編造的經歷或參與承諾，也沒有不願公開的個資。
       refs: [application, membersGuide]
     - q: 加入 Discord 就算成員嗎？
-      a: 不算。成員資格以自介 PR 審查通過為準。Discord 是大家交流、參與活動與找人協作的地方，我們會邀請你，但它不是門檻；Star 與活動留言也一樣，依意願參與。
+      a: 不算。成員資格依現行制度與有效審查紀錄核對。Discord 是大家交流、參與活動與找人協作的地方，我們會邀請你，但它不是門檻；Star 與活動留言也一樣，依意願參與。
       refs: [application]
     - q: 加入後一定要幫忙嗎？
       a: 不用。所有成員都是志工，組織不強制任何人承擔工作。基本參與度與分工安排依正式成員參與制度辦理；自介寫下可以幫什麼忙、想要幫什麼忙，不代表答應接下任何指定的工作。
       refs: [constitution, participation]
     - q: 加入要收費嗎？
-      a: 不用。加入的唯一門檻是提交自介 PR。我們也不在筆記或活動中收錢置入、不為任何公司推銷。
+      a: 不用。以自介 PR 申請，成員資格依現行制度與有效審查紀錄核對。我們也不在筆記或活動中收錢置入、不為任何公司推銷。
       refs: [application, constitution]
     - q: 我不會用 GitHub 怎麼辦？
-      a: 請依 Members/README 的最新步驟與提交位置建立自介、開 PR。也可以用上面的自介產生器起草，再依正式要求核對與補齊。卡住了，就到 Discord 發問。
+      a: 請依 members/README 的最新步驟與提交位置建立自介、開 PR。也可以用上面的自介產生器起草，再依正式要求核對與補齊。卡住了，就到 Discord 發問。
       refs: [membersGuide, discord]
     - q: 審查多久？誰審？
       a: 審查人、程序與權限安排依正式申請制度辦理，本頁不承諾處理時間。PR 送出就是提出申請；如果需要補充，你會在 PR 上看到審查意見。
@@ -114,7 +114,7 @@ faq:
   refLabels:
     constitution: 憲法
     application: 申請制度
-    membersGuide: Members/README
+    membersGuide: members/README
     participation: 成員參與制度
     review: 自介審查
     discord: Discord

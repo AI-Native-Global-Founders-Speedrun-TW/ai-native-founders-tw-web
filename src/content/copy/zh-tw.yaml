@@ -211,7 +211,7 @@ notDo:
   kicker: Split 07 · 我們不做什麼
   title: 此組織為公益性質的組織，承諾不進行：
   items:
-    - 不收入會費。加入唯一的門檻是提交自介 PR。
+    - 不收入會費。以自介 PR 申請，成員資格依現行制度與有效審查紀錄核對。
     - 不推銷。不用組織的名義、筆記或活動推銷任何公司的產品。
     - 不收錢置入。筆記與活動裡沒有付費廣告或推薦。
 
@@ -219,7 +219,7 @@ finish:
   # Threads 招募客服 SOP 公版；申請制度
   kicker: Split 08 · 終點線
   title: 你的 run，從這裡開始。
-  body: 加入的唯一門檻，是一份真誠的自我介紹。不需要亮眼經歷或完整專案；還在探索，也可以如實說明。
+  body: 以一份真誠的自我介紹開始申請，具體要求依 members/README 與現行制度辦理。不需要亮眼經歷或完整專案；還在探索，也可以如實說明。
   steps:
     - name: 加入 Discord
       detail: 大家交流、參與活動與找人協作的地方。Discord 是邀請，不是門檻。
@@ -231,7 +231,7 @@ finish:
       detail: 創辦人的話、憲法、申請制度：我們想做什麼、共同遵守的原則、怎麼加入。
       link: founderWords
     - name: 用 PR 提交自我介紹
-      detail: 寫下你是誰、為什麼加入、想要獲得什麼、想分享什麼，以及可以幫什麼忙、想要幫什麼忙。審查通過後，就是成員。
+      detail: 寫下你是誰、為什麼加入、想要獲得什麼、想分享什麼，以及可以幫什麼忙、想要幫什麼忙。依 members/README 附本人願意公開的真人照片，並在 assignment 選擇至少一項 R&R 當 Contributors。成員資格依現行制度與有效審查紀錄核對。
       link: membersGuide
   timerStop: RUN STARTED
   start: START

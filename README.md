@@ -6,9 +6,9 @@
 
 **AI-Native Global Founders Speedrun Taiwan 的官方網站**
 
-[組織 mono repo](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono) ·
-[憲法](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/constitution.md) ·
-[如何加入](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/%5B%E6%A9%9F%E5%88%B6%5D%E7%94%B3%E8%AB%8B%E5%88%B6%E5%BA%A6.md)
+[組織 mono repo](https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono) ·
+[憲法](https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/%E6%86%B2%E6%B3%95.md) ·
+[如何加入](https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/%5B%E6%A9%9F%E5%88%B6%5D%20%E6%86%B2%E6%94%BF%E5%88%B6%E5%BA%A6.md)
 
 </div>
 
@@ -22,7 +22,7 @@
 - **給程式與 AI 讀的輸出**：`/api/v1/*.json`、`/llms.txt`、`/llms-full.txt`。
 - 支援繁體中文與英文（`/en`）。
 
-網站上的規則、願景與自介都直接從 [mono](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono) 讀取，本 repo 不另外存一份。
+網站上的規則、願景與自介都直接從 [mono](https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono) 讀取，本 repo 不另外存一份。
 
 ## 快速開始
 
@@ -36,7 +36,8 @@ pnpm dev
 打開 http://localhost:4321。`pnpm build` 會先把 mono 同步到 `.cache/mono`；本機已經有 mono 的話：
 
 ```bash
-MONO_PATH=../ai-native-founders-tw-mono pnpm build
+# 從 mono/modules/ai-native-founders-tw-web 執行
+MONO_PATH=../.. pnpm build
 ```
 
 | 指令 | 用途 |
@@ -79,8 +80,8 @@ GitHub API（頭像，選用）─────────┘
 
 - **改文案**：編輯 `src/content/copy/*.yaml` 後開 PR，不需要會寫程式。
 - **改網站**：開 PR 前請確認 `pnpm check && pnpm test && pnpm lint && pnpm build` 都通過。
-- **加入組織**：請依 mono 的[申請制度](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/%5B%E6%A9%9F%E5%88%B6%5D%E7%94%B3%E8%AB%8B%E5%88%B6%E5%BA%A6.md)提交自介 PR，本 repo 不處理申請。
-- 所有內容受 mono [憲法](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/constitution.md)約束，不接受廣告、付費置入或特定公司推銷。
+- **加入組織**：請依 mono 的[申請制度](https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/%5B%E6%A9%9F%E5%88%B6%5D%20%E6%86%B2%E6%94%BF%E5%88%B6%E5%BA%A6.md)提交自介 PR，本 repo 不處理申請。
+- 所有內容受 mono [憲法](https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/%E6%86%B2%E6%B3%95.md)約束，不接受廣告、付費置入或特定公司推銷。
 - 用 AI 協作的話，AI 會讀 [`AGENTS.md`](AGENTS.md)（`CLAUDE.md` 指向同一份）。
 
 ## 製作

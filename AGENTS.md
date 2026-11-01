@@ -1,10 +1,10 @@
 # AGENTS.md
 
-AI-Native Global Founders Speedrun Taiwan 的網站。屬於 [mono](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono) 的衍生程式碼，之後以 submodule 掛進 mono。
+AI-Native Global Founders Speedrun Taiwan 的網站。屬於 [mono](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono) 的衍生程式碼，以 submodule 放在 mono 的 `modules/ai-native-founders-tw-web/`。
 
 ## 規則
 
-- 網站上的所有內容與文案受 mono 的[憲法](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/constitution.md)約束；Deliver／Push 前依 mono `AGENTS.md` 的方法，以 subagent 逐條檢查。
+- 網站上的所有內容與文案受 mono 的[憲法](https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono/blob/main/specs/01-%E5%88%B6%E5%BA%A6/%E6%86%B2%E6%B3%95.md)約束；Deliver／Push 前依 mono `AGENTS.md` 的方法，以 subagent 逐條檢查。
 - 規則、願景、自介與筆記以 mono 為唯一來源，本 repo 不另存可編輯的副本；網站在 build 時從 mono 讀取。
 - 不得把 mono `# Note` 中尚未採納的構想寫成網站已提供的服務。
 - 不得加入付費置入、廣告或特定公司推銷（憲法第 7 條）。
@@ -21,7 +21,7 @@ pnpm lint         # Biome；pnpm format 自動排版
 node scripts/shot.mjs <url> <out.png>   # 截圖，改畫面後用來實際看結果
 ```
 
-Push 前 `pnpm check && pnpm test && pnpm lint && pnpm build` 都要通過。本機已有 mono 時用 `MONO_PATH=../ai-native-founders-tw-mono` 跳過複製。
+Push 前 `pnpm check && pnpm test && pnpm lint && pnpm build` 都要通過。從 mono 的 `modules/ai-native-founders-tw-web/` 執行時用 `MONO_PATH=../..` 跳過複製。
 
 ## 程式碼地圖
 

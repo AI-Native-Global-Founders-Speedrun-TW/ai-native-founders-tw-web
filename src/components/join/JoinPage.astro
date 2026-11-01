@@ -13,9 +13,9 @@ const copy = getCopy(locale);
 const j = getPageCopy('join', locale);
 const g = await getFullGraph();
 
-// 自介範本以 mono 為唯一來源；讀不到時不顯示產生器，只連到 Members/README
+// 自介範本以 mono 為唯一來源；讀不到時不顯示產生器，只連到 members/README
 const introTemplate = extractIntroTemplate(
-  g.documents.find((d) => d.path === 'Members/README.md')?.body ?? '',
+  g.documents.find((d) => d.path === 'members/README.md')?.body ?? '',
 );
 const docUrl = (path: string) => g.documents.find((d) => d.path === path)?.url ?? links.mono;
 const refUrl: Record<string, string> = {
@@ -23,8 +23,8 @@ const refUrl: Record<string, string> = {
   application: links.application,
   membersGuide: links.membersGuide,
   discord: links.discord,
-  participation: docUrl('specs/01-制度/[機制]成員參與制度.md'),
-  review: docUrl('specs/01-制度/[機制]自介審查.md'),
+  participation: docUrl('specs/01-制度/[機制] 憲政制度.md'),
+  review: docUrl('specs/03-SOP/[SOP]自介PR審查SOP.md'),
 };
 const steps: { name: string; detail: string; link: keyof typeof links }[] = copy.finish.steps;
 const stepHref = (k: string) => {

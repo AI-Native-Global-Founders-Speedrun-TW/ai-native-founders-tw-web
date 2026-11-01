@@ -21,7 +21,7 @@ import { type Author, aggregateAuthors, GIT_LOG_FORMAT, parseGitLog } from './pa
 import { type ParsedIntro, parseIntro } from './parse/intro';
 import { firstH1, normalizeNewlines, stripFrontMatter } from './parse/markdown';
 
-export const MONO_REPO = 'AI-Native-Founders-TW/ai-native-founders-tw-mono';
+export const MONO_REPO = 'AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono';
 
 export interface ContributionRecord extends Contribution {
   labelEn?: string;
@@ -133,7 +133,7 @@ function layerOf(path: string): DocumentRecord['layer'] {
   if (b.startsWith('[Principle]')) return 'principle';
   if (b.startsWith('[機制]')) return 'mechanism';
   if (b.startsWith('[功能]')) return 'feature';
-  if (path.startsWith('Members/')) return 'guide';
+  if (path.startsWith('members/')) return 'guide';
   return 'spec';
 }
 
@@ -303,7 +303,7 @@ export async function buildGraph(opts: BuildOptions = {}): Promise<FullGraph> {
 
     // 文件與標題（README 表格與「資訊貢獻者.md」中的連結文字優先，例如 vision.md →「願景」）
     const docFiles = [...walk(join(monoPath, 'specs'), (p) => p.endsWith('.md'))];
-    const membersGuide = join(monoPath, 'Members', 'README.md');
+    const membersGuide = join(monoPath, 'members', 'README.md');
     if (existsSync(membersGuide)) docFiles.push(membersGuide);
     const linkTitles = new Map<string, string>();
     for (const f of docFiles.filter((p) => /readme\.md$/i.test(p))) {
@@ -382,9 +382,13 @@ export async function buildGraph(opts: BuildOptions = {}): Promise<FullGraph> {
 
     // Members 自介
     const memberFiles = walk(
-      join(monoPath, 'Members'),
-      (p) => p.endsWith('.md') && !/^(readme|template|_)/i.test(basename(p)),
+      join(monoPath, 'members'),
+      (p) =>
+        p.endsWith('.md') &&
+        !/^(readme|members|r-and-r-assignment)\.md$|^(template|pending-|_)/i.test(basename(p)),
     );
+    const seenMemberIds = new Set<string>();
+    const seenMemberAccounts = new Set<string>();
     for (const f of memberFiles) {
       const file = rel(f);
       let parsed: ParsedIntro;
@@ -395,8 +399,27 @@ export async function buildGraph(opts: BuildOptions = {}): Promise<FullGraph> {
         continue;
       }
       for (const w of parsed.warnings) warn(w);
-      const p = id.resolve({ name: parsed.name ?? basename(f, '.md'), github: parsed.github });
+      if (!parsed.github) {
+        warn(`${file}：缺少 GitHub 帳號，無法核對成員身分，略過`);
+        continue;
+      }
+      const account = parsed.github.toLowerCase();
+      if (
+        seenMemberAccounts.has(account) ||
+        (parsed.memberId && seenMemberIds.has(parsed.memberId))
+      ) {
+        warn(`${file}：成員編號或 GitHub 帳號重複，略過以避免覆寫另一位成員`);
+        continue;
+      }
+      seenMemberAccounts.add(account);
+      if (parsed.memberId) seenMemberIds.add(parsed.memberId);
+      const p = id.resolveIntro({
+        name: parsed.name ?? basename(f, '.md'),
+        github: parsed.github,
+        memberId: parsed.memberId,
+      });
       p.hasIntro = true;
+      p.memberId = parsed.memberId;
       p.about = parsed.about;
       p.canHelp = parsed.canHelp.length ? parsed.canHelp : undefined;
       p.wantHelp = parsed.wantHelp.length ? parsed.wantHelp : undefined;
