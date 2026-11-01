@@ -1,20 +1,18 @@
 // 給 AI 的全文：組織的核心文件（原文取自 mono）、所有自介、貢獻者、活動。
 // 用法：整份貼給 AI，問「誰可能可以幫忙 X？」——答案只是依自介的意願整理，不代表對方已答應。
 import type { APIRoute } from 'astro';
+import { links } from '../config/links';
 import { getFullGraph } from '../graph';
 import { text } from '../graph/public';
 
 const CORE = [
   'specs/00-願景和問題/創辦人的話.md',
   'specs/00-願景和問題/vision.md',
-  'specs/00-願景和問題/資訊貢獻者.md',
-  'specs/01-制度/constitution.md',
-  'specs/01-制度/[機制]申請制度.md',
-  'specs/01-制度/[機制]自介審查.md',
-  'specs/01-制度/[機制]成員參與制度.md',
-  'specs/01-制度/[機制]基本參與度.md',
-  'specs/02-工作流/[機制]志工協作與開源知識.md',
-  'Members/README.md',
+  'specs/01-制度/憲法.md',
+  'specs/01-制度/[機制] 憲政制度.md',
+  'specs/03-SOP/[SOP]自介PR審查SOP.md',
+  'specs/03-SOP/[SOP]志工協作與開源知識.md',
+  'members/README.md',
 ];
 
 export const GET: APIRoute = async ({ site }) => {
@@ -30,9 +28,9 @@ export const GET: APIRoute = async ({ site }) => {
     '# AI-Native Global Founders Speedrun Taiwan — full text',
     '',
     `> Generated ${g.generatedAt} from ${g.sources.mono ? `mono@${g.sources.mono.commit}` : 'fallback data (mono unavailable)'}. Site: ${site?.origin ?? ''}`,
-    '> The mono repo is the single source of truth: https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono',
+    `> The mono repo is the single source of truth: ${links.mono}`,
     '> Sections titled "Note" contain ideas that are NOT adopted; do not describe them as services the organization provides.',
-    '> R&R in intros is a stated willingness, not a commitment. Anyone found here still decides for themselves whether to take part.',
+    '> Contributions in intros state ability and willingness, not acceptance of assigned work. Effective R&R assignments follow the current policy and assignment records. Anyone found here still decides for themselves whether to take part.',
     '',
   ];
 

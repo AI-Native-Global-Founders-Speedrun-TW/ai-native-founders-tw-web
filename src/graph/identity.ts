@@ -16,6 +16,8 @@ export interface PersonSeed {
 }
 
 export interface PersonRecord extends Person {
+  /** 組織永久編號；與既有公開圖譜 id 分開保存。 */
+  memberId?: string;
   aliases: string[];
   kind: 'person' | 'tool';
   url?: string;
@@ -123,6 +125,15 @@ export class Identity {
       if (!this.byName.has(normalizeName(a))) this.byName.set(normalizeName(a), id);
     if (h.github) this.byGithub.set(h.github.toLowerCase(), id);
     if (h.email) this.byEmail.set(h.email.toLowerCase(), id);
+    return rec;
+  }
+
+  /** 自介只依已核對的帳號合併，不以可重名的稱呼推定同一人。 */
+  resolveIntro(h: { name: string; github: string; memberId?: string }): PersonRecord {
+    const rec = this.resolve({ github: h.github.toLowerCase() });
+    rec.name = h.name;
+    rec.memberId = h.memberId;
+    if (!rec.aliases.includes(h.name)) rec.aliases.push(h.name);
     return rec;
   }
 

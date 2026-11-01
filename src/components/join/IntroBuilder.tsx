@@ -1,6 +1,6 @@
 /**
  * 自介產生器（React island）。
- * - 範本由 build 時從 mono Members/README 取出後傳入；逐欄填寫 → 即時預覽 Markdown → 用 links.newIntro 開 GitHub 建立檔案。
+ * - 範本由 build 時從 mono members/README 取出後傳入；逐欄填寫 → 即時預覽 Markdown → 用 links.newIntro 開 GitHub 建立檔案。
  * - 不送出任何資料到其他地方；草稿只存在 localStorage。
  */
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
@@ -53,7 +53,7 @@ const GROUPS: Record<string, { key: keyof IntroFields; multiline?: boolean; rows
     { key: 'wantHelp', multiline: true, rows: 4 },
   ],
 };
-const OPTIONAL = new Set<keyof IntroFields>(['github', 'contact']);
+const OPTIONAL = new Set<keyof IntroFields>(['contact']);
 const STORAGE = 'anf:intro-draft:v1';
 const URL_SOFT_LIMIT = 7500;
 
@@ -88,7 +88,7 @@ export default function IntroBuilder({
   template,
 }: {
   copy: BuilderCopy;
-  /** mono Members/README.md 的自介參考範例 */
+  /** mono members/README.md 的自介參考範例 */
   template: string;
 }) {
   const [f, setF] = useState<IntroFields>(emptyFields);
@@ -217,8 +217,8 @@ export default function IntroBuilder({
               <i />
               <i />
             </span>
-            <span className="ib-path" title={`Members/${filename}`}>
-              <span className="ib-path-dim">Members/</span>
+            <span className="ib-path" title={`members/${filename}`}>
+              <span className="ib-path-dim">members/</span>
               {filename}
             </span>
             <span className="ib-badge">{copy.preview}</span>

@@ -1,7 +1,7 @@
 /**
- * 寬鬆解析 Members/*.md 自介。
+ * 寬鬆解析 members/*.md 自介。
  *
- * 範本（mono Members/README.md）的欄位：我是誰（含 GitHub、聯絡方式）、為什麼想加入、想要獲得什麼、
+ * 範本（mono members/README.md）的欄位：我是誰（含 GitHub、聯絡方式）、為什麼想加入、想要獲得什麼、
  * 想分享什麼、我的 R&R（可以幫什麼忙、想要幫什麼忙）。格式可自由調整，所以：
  * - 依標題「關鍵字」對應欄位，不依順序或層級；也接受「**可以幫什麼忙**：…」這種行內標籤。
  * - 抽不到任何欄位時，整篇放進 about，只發警告。
@@ -21,6 +21,7 @@ import {
 export type IntroField = 'about' | 'why' | 'seek' | 'share' | 'canHelp' | 'wantHelp' | 'rnr';
 
 export interface ParsedIntro {
+  memberId?: string;
   name?: string;
   github?: string;
   about?: string;
@@ -42,7 +43,10 @@ export interface ParsedIntro {
 
 // 順序重要：R&R 標題同時含「可以幫」「想要幫」，要先判斷；「想要幫」要早於「可以幫」與「想要獲得」
 const FIELD_PATTERNS: [IntroField, RegExp][] = [
-  ['rnr', /r\s*&\s*r|r\s*and\s*r|role\s*(and|&)\s*responsibilit/i],
+  [
+    'rnr',
+    /r\s*&\s*r|r\s*and\s*r|role\s*(and|&)\s*responsibilit|(?:^|\s)contributions?(?:\s|[：:]|$)/i,
+  ],
   [
     'wantHelp',
     /想要?幫|想協助|想參與|願意參與|want(ed)?\s+to\s+help|would\s+like\s+to\s+help|want\s+to\s+contribute/i,
@@ -133,6 +137,10 @@ export function parseIntro(markdown: string, file = ''): ParsedIntro {
   if (name) out.name = name;
   else warnings.push(`${file}: 找不到標題（# 名字），以檔名代替`);
 
+  const memberId = /^Member ID[：:]\s*(\d{6})\s*$/im.exec(body)?.[1];
+  // 只讀取來源原值；格式有效性、任職及資格依規格與有效紀錄另核對，不在這裡配置編號。
+  if (memberId) out.memberId = memberId;
+
   const gh = GITHUB_LINE.exec(body);
   if (gh) out.github = extractGithub(gh[1]);
   if (!out.github) {
@@ -162,6 +170,7 @@ export function parseIntro(markdown: string, file = ''): ParsedIntro {
       ? toPlain(
           t
             .replace(GITHUB_LINE, '')
+            .replace(/^Member ID[：:].*$/gim, '')
             .replace(CONTACT_LINE, '')
             .replace(/^R&R 必須在提交前寫清楚[^\n]*$/gm, ''),
         ) || undefined

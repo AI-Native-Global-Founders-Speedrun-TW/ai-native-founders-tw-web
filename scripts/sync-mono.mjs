@@ -6,7 +6,7 @@
 //   已存在就 `git pull --ff-only`。
 // - 任何失敗只警告、exit 0：建置不可因為網路問題失敗，graph 會退回 fixture。
 //
-// 用法：pnpm sync:mono   或   MONO_PATH=../ai-native-founders-tw-mono pnpm sync:mono
+// 用法：pnpm sync:mono   或   MONO_PATH=../.. pnpm sync:mono
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO =
   process.env.MONO_REPO ??
-  'https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono.git';
+  'https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono.git';
 const TARGET = join(ROOT, '.cache', 'mono');
 
 const log = (msg) => console.log(`[sync-mono] ${msg}`);

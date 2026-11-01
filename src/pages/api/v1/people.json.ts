@@ -12,7 +12,7 @@ export const GET: APIRoute = async ({ site }) => {
   });
   return json({
     ...meta(g, site),
-    note: '自介（Members/*.md 已合併進 mono main）。R&R 是本人表達的意願，不代表已承諾任何工作。',
+    note: '自介（members/*.md 已合併進 mono main）。Contributions 是本人表達的能力與意願，不代表已接受指定工作。有效 R&R 分工依 assignment 與現行制度核對。',
     count: people.length,
     people,
   });

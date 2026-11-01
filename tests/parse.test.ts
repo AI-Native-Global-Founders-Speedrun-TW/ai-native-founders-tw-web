@@ -1,10 +1,12 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   buildMarkdown,
+  emptyFields,
   extractIntroTemplate,
   introFilename,
+  missingFields,
   templateHints,
 } from '../src/components/join/intro-template';
 import { Identity } from '../src/graph/identity';
@@ -37,7 +39,7 @@ describe('自介寬鬆解析', () => {
       .replace('<佔位：想分享什麼>', '寫作與訪談的經驗。')
       .replace('<佔位：可以幫什麼忙>', '- 文案校稿\n- 訪談逐字稿整理')
       .replace('<佔位：想要幫什麼忙>', '想學 landing page 怎麼做');
-    const r = parseIntro(filled, 'Members/xiaoming-dev.md');
+    const r = parseIntro(filled, 'members/xiaoming-dev.md');
     expect(r.name).toBe('小明');
     expect(r.github).toBe('xiaoming-dev');
     expect(r.about).toBe('中文系大三，還在探索創業。');
@@ -53,7 +55,7 @@ describe('自介寬鬆解析', () => {
   });
 
   it('沒改過的範本：佔位文字視為未填，只發警告', () => {
-    const r = parseIntro(fx('intro-template.md'), 'Members/x.md');
+    const r = parseIntro(fx('intro-template.md'), 'members/x.md');
     expect(r.name).toBeUndefined();
     expect(r.github).toBeUndefined();
     expect(r.canHelp).toEqual([]);
@@ -63,7 +65,7 @@ describe('自介寬鬆解析', () => {
 
   it('自由格式（沒有標題）：保留全文', () => {
     const md = '# Alice\n\n我在做 AI 客服產品，想找人聊出海。\n\n歡迎找我聊 B2B SaaS。';
-    const r = parseIntro(md, 'Members/alice.md');
+    const r = parseIntro(md, 'members/alice.md');
     expect(r.name).toBe('Alice');
     expect(r.structured).toBe(false);
     expect(r.about).toContain('AI 客服產品');
@@ -111,7 +113,7 @@ describe('自介寬鬆解析', () => {
   });
 
   it('空檔案不會丟例外', () => {
-    expect(parseIntro('', 'Members/empty.md').warnings[0]).toContain('空');
+    expect(parseIntro('', 'members/empty.md').warnings[0]).toContain('空');
   });
 });
 
@@ -274,6 +276,36 @@ describe('別名合併', () => {
 });
 
 describe('自介產生器', () => {
+  const memberReadme = join(
+    process.env.MONO_PATH ?? join(__dirname, '..', '.cache', 'mono'),
+    'members',
+    'README.md',
+  );
+  it.skipIf(!existsSync(memberReadme))('現行 mono 範本能產生完整可解析自介', () => {
+    const template = extractIntroTemplate(readFileSync(memberReadme, 'utf8'));
+    expect(template).not.toBeNull();
+    expect(template).toContain('discord_id: null');
+    const draft = buildMarkdown(template!, {
+      name: '測試者',
+      github: 'test-founder',
+      about: '正在探索',
+      contact: '',
+      why: '一起學習',
+      seek: '創業知識',
+      share: '筆記',
+      canHelp: '整理筆記',
+      wantHelp: '辦活動',
+    });
+    const intro = parseIntro(draft);
+    expect(intro.github).toBe('test-founder');
+    expect(intro.about).toBe('正在探索');
+    expect(intro.why).toBe('一起學習');
+    expect(intro.seek).toBe('創業知識');
+    expect(intro.share).toBe('筆記');
+    expect(intro.canHelp).toEqual(['整理筆記']);
+    expect(intro.wantHelp).toEqual(['辦活動']);
+  });
+
   it('產生的 Markdown 可以被解析器讀回來', () => {
     const md = buildMarkdown(fx('intro-template.md'), {
       name: '小明',
@@ -324,9 +356,72 @@ describe('自介產生器', () => {
     expect(extractIntroTemplate('# 沒有範本')).toBeNull();
   });
 
+  it.each(['````', '~~~~'])('保留 %s 外框內的 YAML 與完整自介', (fence) => {
+    const body = [
+      '# <名字>',
+      '## 成員資料',
+      'GitHub：<帳號>',
+      '```yaml',
+      'discord_id: null',
+      '```',
+      '## 我是誰',
+      '<介紹>',
+      '## 為什麼想加入',
+      '<動機>',
+      '### 可以幫什麼忙',
+      '<能力>',
+      '### 想要幫什麼忙',
+      '<意願>',
+    ].join('\n');
+    const readme = `# 提交說明\n${fence}markdown\n${body}\n${fence}\n## 範本之外`;
+    expect(extractIntroTemplate(readme)).toBe(body);
+    const draft = buildMarkdown(extractIntroTemplate(readme)!, {
+      ...emptyFields,
+      name: '測試者',
+      github: 'test-founder',
+      about: '正在探索',
+      why: '一起學習',
+      canHelp: '整理筆記',
+      wantHelp: '辦活動',
+    });
+    const intro = parseIntro(draft);
+    expect(draft).toContain('```yaml\ndiscord_id: null\n```');
+    expect(intro.about).toBe('正在探索');
+    expect(intro.why).toBe('一起學習');
+    expect(intro.canHelp).toEqual(['整理筆記']);
+    expect(intro.wantHelp).toEqual(['辦活動']);
+    expect(extractIntroTemplate(`${fence}markdown\n${body}\n`)).toBeNull();
+  });
+
   it('檔名：優先用 GitHub 帳號，避免不安全字元', () => {
-    expect(introFilename({ github: '@Ray-Cat', name: '' })).toBe('Ray-Cat.md');
-    expect(introFilename({ github: '', name: 'Ray 貓/../x' })).toBe('Ray-貓-x.md');
-    expect(introFilename({ github: '', name: '' })).toBe('my-intro.md');
+    expect(introFilename({ github: '@Ray-Cat', name: '' })).toBe('pending-ray-cat.md');
+    expect(introFilename({ github: '', name: 'Ray 貓/../x' })).toBe('pending-your-github.md');
+    expect(introFilename({ github: '', name: '' })).toBe('pending-your-github.md');
+  });
+});
+
+describe('成員識別', () => {
+  it('保留待配置標記，不由產生器配置編號；GitHub 必填且不得悄悄改寫無效帳號', () => {
+    const template = '# <名字>\n\n## 我是誰\nMember ID：待配置\nGitHub：<帳號>\n<介紹>';
+    expect(buildMarkdown(template, { ...emptyFields, github: 'Alice' })).toContain(
+      'Member ID：待配置',
+    );
+    expect(buildMarkdown(template, { ...emptyFields, github: 'Alice' })).toContain(
+      'GitHub：@alice',
+    );
+    for (const github of ['', 'bad!name', '-bad', 'bad--name']) {
+      expect(missingFields({ ...emptyFields, github })).toContain('github');
+    }
+    expect(missingFields({ ...emptyFields, github: 'https://github.com/Alice' })).not.toContain(
+      'github',
+    );
+  });
+  it('編號維持六位字串，改帳號不改編號，待配置不是編號', () => {
+    const body = '# Alice\n\n## 我是誰\nMember ID：000042\nGitHub：@alice\n一位成員';
+    expect(parseIntro(body).memberId).toBe('000042');
+    expect(parseIntro(body.replace('000042', '000000')).memberId).toBe('000000');
+    expect(parseIntro(body.replace('@alice', '@new-alice')).memberId).toBe('000042');
+    expect(parseIntro(body).about).not.toContain('Member ID');
+    expect(parseIntro(body.replace('000042', '待配置')).memberId).toBeUndefined();
   });
 });
