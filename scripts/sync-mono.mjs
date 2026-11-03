@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO =
   process.env.MONO_REPO ??
-  'https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono.git';
+  'https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono.git';
 const TARGET = join(ROOT, '.cache', 'mono');
 
 const log = (msg) => console.log(`[sync-mono] ${msg}`);

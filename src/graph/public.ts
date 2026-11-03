@@ -29,7 +29,7 @@ export function meta(g: FullGraph, site?: URL) {
     source: {
       mono: g.sources.mono
         ? {
-            repo: 'https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono',
+            repo: 'https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono',
             commit: g.sources.mono.commit,
           }
         : null,

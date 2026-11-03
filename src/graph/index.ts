@@ -29,7 +29,7 @@ export interface Person {
   github?: string;
   name: string;
   avatar?: string;
-  /** 自介（Members/*.md）是否已合併進 mono main */
+  /** 自介（members/*.md）是否已合併進 mono main */
   hasIntro: boolean;
   about?: string;
   canHelp?: string[];
