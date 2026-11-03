@@ -7,14 +7,10 @@ import { text } from '../graph/public';
 const CORE = [
   'specs/00-願景和問題/創辦人的話.md',
   'specs/00-願景和問題/vision.md',
-  'specs/00-願景和問題/資訊貢獻者.md',
-  'specs/01-制度/constitution.md',
-  'specs/01-制度/[機制]申請制度.md',
-  'specs/01-制度/[機制]自介審查.md',
-  'specs/01-制度/[機制]成員參與制度.md',
-  'specs/01-制度/[機制]基本參與度.md',
-  'specs/02-工作流/[機制]志工協作與開源知識.md',
-  'Members/README.md',
+  'specs/01-制度/憲法.md',
+  'specs/01-制度/[機制] 憲政制度.md',
+  'specs/03-SOP/[SOP]志工協作與開源知識.md',
+  'members/README.md',
 ];
 
 export const GET: APIRoute = async ({ site }) => {
@@ -30,7 +26,7 @@ export const GET: APIRoute = async ({ site }) => {
     '# AI-Native Global Founders Speedrun Taiwan — full text',
     '',
     `> Generated ${g.generatedAt} from ${g.sources.mono ? `mono@${g.sources.mono.commit}` : 'fallback data (mono unavailable)'}. Site: ${site?.origin ?? ''}`,
-    '> The mono repo is the single source of truth: https://github.com/AI-Native-Founders-TW/ai-native-founders-tw-mono',
+    '> The mono repo is the single source of truth: https://github.com/AI-Native-Global-Founders-Speedrun-TW/ai-native-founders-tw-mono',
     '> Sections titled "Note" contain ideas that are NOT adopted; do not describe them as services the organization provides.',
     '> R&R in intros is a stated willingness, not a commitment. Anyone found here still decides for themselves whether to take part.',
     '',

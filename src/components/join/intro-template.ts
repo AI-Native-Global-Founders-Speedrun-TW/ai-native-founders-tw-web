@@ -1,5 +1,5 @@
 /**
- * 自介產生器的範本處理。範本本身不存在這裡：build 時從 mono Members/README.md 的
+ * 自介產生器的範本處理。範本本身不存在這裡：build 時從 mono members/README.md 的
  * 「自介參考範例」取出，依標題把欄位填進 `<…>` 佔位，其餘文字原樣保留。
  * 純函式，不送出任何資料；同時被 React island 與 Vitest 使用。
  */
@@ -31,7 +31,7 @@ export const emptyFields: IntroFields = {
 
 export type FieldHints = Partial<Record<keyof IntroFields, string>>;
 
-/** 取出 Members/README.md 中第一個 ```markdown 區塊；找不到回傳 null */
+/** 取出 members/README.md 中第一個 ```markdown 區塊；找不到回傳 null */
 export function extractIntroTemplate(readme: string): string | null {
   const m = /```markdown\n([\s\S]*?)\n```/.exec(readme.replace(/\r\n?/g, '\n'));
   return m ? m[1] : null;
@@ -92,7 +92,7 @@ export const buildMarkdown = (template: string, f: IntroFields): string =>
 /** 範本裡每個欄位的 `<…>` 提示文字，給表單當說明 */
 export const templateHints = (template: string): FieldHints => fill(template).hints;
 
-/** Members/ 底下的檔名：建議 `<GitHub 帳號>.md`（不是資格條件） */
+/** members/ 底下的檔名：建議 `<GitHub 帳號>.md`（不是資格條件） */
 export function introFilename(f: Pick<IntroFields, 'github' | 'name'>): string {
   const gh = cleanGithub(f.github);
   if (gh) return `${gh}.md`;
@@ -107,7 +107,7 @@ export function introFilename(f: Pick<IntroFields, 'github' | 'name'>): string {
   return `${fromName || 'my-intro'}.md`;
 }
 
-/** 必填：R&R 必須在提交前寫清楚（Members/README） */
+/** 必填：R&R 必須在提交前寫清楚（members/README） */
 export function missingFields(f: IntroFields): (keyof IntroFields)[] {
   const req: (keyof IntroFields)[] = [
     'name',

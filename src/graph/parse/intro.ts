@@ -1,7 +1,7 @@
 /**
- * 寬鬆解析 Members/*.md 自介。
+ * 寬鬆解析 members/*.md 自介。
  *
- * 範本（mono Members/README.md）的欄位：我是誰（含 GitHub、聯絡方式）、為什麼想加入、想要獲得什麼、
+ * 範本（mono members/README.md）的欄位：我是誰（含 GitHub、聯絡方式）、為什麼想加入、想要獲得什麼、
  * 想分享什麼、我的 R&R（可以幫什麼忙、想要幫什麼忙）。格式可自由調整，所以：
  * - 依標題「關鍵字」對應欄位，不依順序或層級；也接受「**可以幫什麼忙**：…」這種行內標籤。
  * - 抽不到任何欄位時，整篇放進 about，只發警告。
@@ -73,6 +73,7 @@ const URL = /https?:\/\/[^\s<>()（）\]]+[^\s<>()（）\].,，。;；]/g;
 const LOGIN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
 const NOT_USERS = new Set([
   'ai-native-founders-tw',
+  'ai-native-global-founders-speedrun-tw',
   'orgs',
   'features',
   'about',
@@ -141,7 +142,9 @@ export function parseIntro(markdown: string, file = ''): ParsedIntro {
   }
 
   out.links = [...new Set(body.match(URL) ?? [])].filter(
-    (u) => !/github\.com\/AI-Native-Founders-TW/i.test(u) && !/docs\.github\.com/i.test(u),
+    (u) =>
+      !/github\.com\/AI-Native-(?:Founders-TW|Global-Founders-Speedrun-TW)/i.test(u) &&
+      !/docs\.github\.com/i.test(u),
   );
 
   const text: Partial<Record<IntroField, string>> = {};
