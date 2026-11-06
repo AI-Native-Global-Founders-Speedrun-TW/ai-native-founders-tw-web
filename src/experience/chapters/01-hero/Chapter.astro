@@ -227,6 +227,7 @@ const down = 'M8 3v10M4 9l4 4 4-4';
     }
     .hero__ctas .btn-run {
       justify-content: space-between;
+      white-space: normal;
     }
     .hero__foot {
       padding-bottom: calc(76px + env(safe-area-inset-bottom));
@@ -240,9 +241,33 @@ const down = 'M8 3v10M4 9l4 4 4-4';
       margin-bottom: 18px;
     }
   }
-  @media (max-width: 899px) and (max-height: 700px) {
+  @media (min-width: 768px) and (max-width: 899px) and (max-height: 700px) {
     .hero__inner {
       padding-top: 26svh;
+    }
+  }
+  @media (max-width: 767px) {
+    .hero__inner {
+      padding-top: calc(66px + env(safe-area-inset-top));
+    }
+    .hero__eyebrow {
+      margin-bottom: 12px;
+    }
+    .hero__sub {
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+    .hero__ctas {
+      margin-top: 16px;
+    }
+  }
+
+  @media (max-width: 479px) and (max-height: 620px) {
+    .hero__ctas {
+      margin-top: 12px;
+    }
+    .hero__ctas .btn-run {
+      --h: 46px;
     }
   }
 

@@ -221,6 +221,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     position: relative;
     padding: clamp(5rem, 12vh, 8rem) var(--vy-pad);
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
   }
 
@@ -371,6 +372,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
     overflow-clip-margin: 0.12em;
     padding-bottom: 0.05em;
     vertical-align: top;
+  }
+  @media (max-width: 767px) {
+    .vy-ph {
+      max-width: 100%;
+      white-space: normal;
+    }
   }
   .vy-ph-in {
     display: inline-block;
