@@ -276,6 +276,7 @@ const rootNode = nodeById.get('root')!;
   .st-wrap {
     padding: clamp(5rem, 12vh, 8rem) var(--st-pad);
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 3rem;
   }
   @media (min-width: 1024px) {
@@ -309,6 +310,12 @@ const rootNode = nodeById.get('root')!;
     overflow-clip-margin: 0.1em;
     padding-bottom: 0.06em;
     vertical-align: top;
+  }
+  @media (max-width: 767px) {
+    .st-ph {
+      max-width: 100%;
+      white-space: normal;
+    }
   }
   .st-ph-in {
     display: inline-block;
@@ -606,6 +613,17 @@ const rootNode = nodeById.get('root')!;
     transition:
       background-color 0.3s,
       border-color 0.3s;
+  }
+  @media (max-width: 767px) {
+    .st-branch {
+      max-width: 4.75rem;
+    }
+    .st-build-name {
+      width: max-content;
+      max-width: 6rem;
+      white-space: normal;
+      text-align: center;
+    }
   }
   .st-build.is-above .st-build-name {
     bottom: 2.6rem;
